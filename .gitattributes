@@ -1,0 +1,2 @@
+. filter=lfs diff=lfs merge=lfs -text
+retrained_graph_gun.pb filter=lfs diff=lfs merge=lfs -text
