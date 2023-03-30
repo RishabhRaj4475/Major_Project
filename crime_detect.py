@@ -21,7 +21,8 @@ from IPython.display import clear_output
 
 from detectors.opticalflow_detector import OpticalflowDetector
 from detectors.pistol_detector import PistolDetector
-
+import gpsloc as gps
+import sendMail as mail
 camera_port = 0
 camera = cv2.VideoCapture(camera_port)
 
@@ -383,6 +384,11 @@ class Window(QtWidgets.QMainWindow):
         self.alert_sound = QtMultimedia.QSoundEffect()
         self.alert_sound.setSource(QtCore.QUrl.fromLocalFile('siren.wav'))  
         self.alert_sound.play()
+        loc=gps.get_loc()
+        msg="Hello" + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))+"in "+"https://www.google.co.in/maps/place/"+str(loc)
+        revemail="rishabh4475@gmail.com"
+        mail.process(revemail,msg)
+        
         self.ig.populate(pics, QtCore.QSize(200,200))        
         logger_msg.warning("Suspicious activity involving firearms detected @ " + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
@@ -393,7 +399,11 @@ class Window(QtWidgets.QMainWindow):
         self.alert_box.show()
         self.alert_sound = QtMultimedia.QSoundEffect()
         self.alert_sound.setSource(QtCore.QUrl.fromLocalFile('siren.wav'))  
-        self.alert_sound.play()       
+        self.alert_sound.play()
+        loc=gps.get_loc()
+        msg="Hai " + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))+"in "+"https://www.google.co.in/maps/place/"+str(loc)
+        revemail="rishabh4475@gmail.com"
+        mail.process(revemail,msg)       
         self.ig.populate(pics, QtCore.QSize(200,200))         
         logger_msg.warning("Suspicious activity involving knives detected @ " + str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
